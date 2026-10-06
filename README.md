@@ -1,358 +1,201 @@
-\# 4× GAN Image Upscaler
+# 4× GAN Image Upscaler
 
+**AI-powered image super-resolution using an ESRGAN-inspired generator.**
 
+Upscale images to 4× their original resolution with a trained RRDB-based GAN, powered by PyTorch and served through a FastAPI backend with an interactive web interface.
 
-An ESRGAN-inspired deep learning project that upscales images to \*\*4× their original resolution\*\* using a Residual-in-Residual Dense Block (RRDB) generator. The project includes a FastAPI backend and an interactive web interface for selecting images, running inference, and comparing original and upscaled results.
+<p align="center">
+  <strong>Deep Learning · Computer Vision · Super-Resolution · FastAPI</strong>
+</p>
 
+---
 
+## Overview
 
-\## Features
+This project explores single-image super-resolution: reconstructing a higher-resolution image from a lower-resolution input.
 
+The model uses Residual-in-Residual Dense Blocks (RRDBs), dense feature connections, and adversarial training to generate enhanced images at 4× spatial resolution.
 
+The project combines model development with a usable application, allowing users to select images, run inference, and compare the original and upscaled results.
 
-\- \*\*4× super-resolution:\*\* Upscales images to four times their original width and height.
+## Features
 
-\- \*\*RRDB-based generator:\*\* Uses densely connected residual blocks to reconstruct image details.
+| Feature | Description |
+|---|---|
+| **4× Upscaling** | Increases image width and height by 4× |
+| **RRDB Generator** | Dense residual feature extraction |
+| **GAN Training** | Adversarial learning with multiple reconstruction and perceptual losses |
+| **Interactive UI** | Image selection and before/after comparison slider |
+| **FastAPI Backend** | API endpoints for inference and image management |
+| **Model Evaluation** | PSNR, SSIM, and LPIPS evaluation workflow |
 
-\- \*\*GAN-based training:\*\* Combines reconstruction, perceptual, edge-aware, structural similarity, and adversarial losses.
+## Preview
 
-\- \*\*Degradation-aware training:\*\* Uses synthetic degradation such as blur, noise, JPEG compression, and bicubic downsampling.
+<!-- Add screenshots here after capturing the working application. -->
 
-\- \*\*Interactive web interface:\*\* Select images, run upscaling, and compare original and enhanced results with a comparison slider.
+<p align="center">
+  <em>Application interface and upscaling results coming soon.</em>
+</p>
 
-\- \*\*FastAPI backend:\*\* Provides endpoints for image listing, upscaling, and retrieving generated results.
+## Model Architecture
 
-\- \*\*Evaluation workflow:\*\* Includes evaluation metrics such as PSNR, SSIM, and LPIPS.
+The generator is inspired by ESRGAN and consists of:
 
+- **16 RRDB blocks** for deep feature extraction
+- **64 feature channels** throughout the main feature trunk
+- Residual Dense Blocks with densely connected convolutional layers
+- Two PixelShuffle ×2 stages for 4× upsampling
+- A PatchGAN discriminator used during adversarial training
 
+Training incorporates Charbonnier reconstruction, VGG perceptual, edge-aware, SSIM-based, and adversarial losses. Synthetic degradation—including blur, noise, JPEG compression, and bicubic downsampling—is used to create degraded training inputs.
 
-\## Model Architecture
+The model was trained for **600 epochs**.
 
+*This is an ESRGAN-inspired implementation, not an exact reproduction of the original ESRGAN architecture.*
 
+## Tech Stack
 
-The generator is inspired by ESRGAN and uses:
+**Machine Learning**
+- Python
+- PyTorch
+- Torchvision
 
+**Backend**
+- FastAPI
+- Uvicorn
+- Pillow
 
+**Frontend**
+- HTML
+- CSS
+- JavaScript
 
-\- 16 Residual-in-Residual Dense Blocks (RRDBs)
+## Getting Started
 
-\- 64 feature channels
+### Prerequisites
 
-\- Dense feature connections within residual dense blocks
+- Windows
+- Python 3.11, or Miniconda/Anaconda
+- The trained model checkpoint
 
-\- Two PixelShuffle ×2 upsampling stages to achieve 4× scaling
+### 1. Clone the repository
 
-\- A PatchGAN discriminator during adversarial training
-
-
-
-The model was trained for 600 epochs. This is an ESRGAN-inspired implementation, not an exact reproduction of the original ESRGAN architecture.
-
-
-
-\## Tech Stack
-
-
-
-\- Python
-
-\- PyTorch and Torchvision
-
-\- FastAPI
-
-\- Uvicorn
-
-\- Pillow
-
-\- HTML, CSS, and JavaScript
-
-
-
-\## Project Structure
-
-
-
-```text
-
-Image\_Upscaler/
-
-├── static/
-
-│   └── index.html
-
-├── input\_images/
-
-├── upscaled\_images/
-
-├── app.py
-
-├── model.py
-
-├── requirements.txt
-
-├── environment.yml
-
-├── start.bat
-
-├── .gitignore
-
-└── README.md
-
+```bash
+git clone https://github.com/YOUR-USERNAME/image-upscaler-using-GAN.git
+cd image-upscaler-using-GAN
 ```
 
+Replace `YOUR-USERNAME` with your GitHub username.
 
+### 2. Download the model
 
-The model checkpoint is distributed separately and is not included in the Git repository.
+Download `checkpoint_gan_epoch_600.pth` from the model link below and place it in the project root, next to `app.py`.
 
+**Model weights:** TODO — add download link.
 
+### 3. Install and run
 
-\## Requirements
+<details>
+<summary><strong>Option A — Standard Python (Windows)</strong></summary>
 
+Install Python 3.11, then run:
 
-
-\- Windows
-
-\- Python 3.11 for the standard Python setup, or Miniconda/Anaconda
-
-\- The trained model checkpoint
-
-\- An internet connection for the initial dependency installation
-
-
-
-CPU inference is supported. Performance depends on the hardware and image dimensions.
-
-
-
-\## Installation
-
-
-
-\### Option A: Standard Python
-
-
-
-1\. Install Python 3.11.
-
-2\. Clone this repository:
-
-
-
-&#x20;  ```bash
-
-&#x20;  git clone https://github.com/YOUR-USERNAME/image-upscaler-using-GAN.git
-
-&#x20;  cd image-upscaler-using-GAN
-
-&#x20;  ```
-
-
-
-3\. Download the trained model checkpoint using the link in the \*\*Model Weights\*\* section below.
-
-4\. Place `checkpoint\_gan\_epoch\_600.pth` in the project root, alongside `app.py`.
-
-5\. Run:
-
-
-
-&#x20;  ```bat
-
-&#x20;  start.bat
-
-&#x20;  ```
-
-
-
-On first launch, the script creates a project-local `.venv` environment and installs the dependencies. Subsequent launches reuse that environment.
-
-
-
-\### Option B: Conda
-
-
-
-1\. Install Miniconda or Anaconda.
-
-2\. Clone the repository and navigate into the project directory.
-
-3\. Download the checkpoint and place it in the project root.
-
-4\. Create the environment:
-
-
-
-&#x20;  ```bash
-
-&#x20;  conda env create -f environment.yml
-
-&#x20;  ```
-
-
-
-5\. Activate it:
-
-
-
-&#x20;  ```bash
-
-&#x20;  conda activate imageupscaler
-
-&#x20;  ```
-
-
-
-6\. Start the server:
-
-
-
-&#x20;  ```bash
-
-&#x20;  python -m uvicorn app:app --host 127.0.0.1 --port 8000
-
-&#x20;  ```
-
-
-
-7\. Open `http://127.0.0.1:8000/app` in your browser.
-
-
-
-\## Model Weights
-
-
-
-The trained checkpoint is too large to include directly in this Git repository.
-
-
-
-\*\*Download:\*\* TODO — add the model checkpoint link here.
-
-
-
-After downloading, place the file in the project root:
-
-
-
-```text
-
-Image\_Upscaler/
-
-├── checkpoint\_gan\_epoch\_600.pth
-
-├── app.py
-
-└── model.py
-
+```bat
+start.bat
 ```
 
+The launcher creates a project-local `.venv` environment and installs the dependencies on first launch. Subsequent launches reuse the environment.
 
+</details>
 
-The application expects the checkpoint filename `checkpoint\_gan\_epoch\_600.pth`.
+<details>
+<summary><strong>Option B — Conda</strong></summary>
 
+Create the environment:
 
+```bash
+conda env create -f environment.yml
+```
 
-\## Usage
+Activate it:
 
+```bash
+conda activate imageupscaler
+```
 
+Start the server:
 
-1\. Start the application using `start.bat` or the Conda command above.
+```bash
+python -m uvicorn app:app --host 127.0.0.1 --port 8000
+```
 
-2\. Open the web interface in your browser.
+</details>
 
-3\. Add images to the `input\_images/` directory.
+### 4. Open the application
 
-4\. Select the images you want to upscale.
+Navigate to:
 
-5\. Run the upscaling process.
+**http://127.0.0.1:8000/app**
 
-6\. View the results and use the comparison slider to inspect the original and upscaled images.
+Place images in `input_images/`, select them in the interface, and run the upscaling process. Generated results are saved in `upscaled_images/`.
 
+## API Reference
 
-
-Generated images are saved in `upscaled\_images/`.
-
-
-
-\## API Endpoints
-
-
-
-| Method | Endpoint | Purpose |
-
+| Method | Endpoint | Description |
 |---|---|---|
+| `GET` | `/` | API status and model information |
+| `GET` | `/images` | List input images |
+| `POST` | `/upscale/{filename}` | Upscale an image |
+| `GET` | `/upscaled` | List generated images |
+| `GET` | `/app` | Serve the web interface |
 
-| GET | `/` | API status and model information |
+Interactive API documentation is available at `/docs` while the server is running.
 
-| GET | `/images` | List available input images |
+## Evaluation
 
-| POST | `/upscale/{filename}` | Upscale a selected image |
+The evaluation workflow supports three complementary metrics:
 
-| GET | `/upscaled` | List generated images |
-
-| GET | `/app` | Open the web interface |
-
-
-
-Interactive API documentation is available at `http://127.0.0.1:8000/docs` while the server is running.
-
-
-
-\## Evaluation
-
-
-
-The evaluation workflow uses:
-
-
-
-\- \*\*PSNR:\*\* Measures pixel-level reconstruction error.
-
-\- \*\*SSIM:\*\* Measures structural similarity.
-
-\- \*\*LPIPS:\*\* Measures perceptual similarity using deep features.
-
-
+- **PSNR** — pixel-level reconstruction fidelity
+- **SSIM** — structural similarity
+- **LPIPS** — perceptual similarity using deep features
 
 Evaluation datasets used in the project include Set5, Set12, Set14, BSD100, Urban100, General100, and Manga109.
 
+Quantitative results and baseline comparisons will be documented when the final measurements are added.
 
+## Repository Structure
 
-Quantitative results and benchmark comparisons can be added here once the final measurements are documented.
+```text
+Image_Upscaler/
+├── static/
+│   └── index.html
+├── input_images/
+├── upscaled_images/
+├── app.py
+├── model.py
+├── requirements.txt
+├── environment.yml
+├── start.bat
+├── .gitignore
+└── README.md
+```
 
+The trained checkpoint is distributed separately rather than committed to Git.
 
+## Limitations
 
-\## Limitations
+- Inference speed depends on hardware and image dimensions.
+- GAN-generated details may look plausible without matching the original scene exactly.
+- Results vary with image content and degradation.
+- The checkpoint must be downloaded separately before running the application.
 
+## Future Work
 
+- Benchmark against established super-resolution baselines
+- Document quantitative results and visual comparisons
+- Improve inference performance and GPU support
+- Expand batch-processing and image-format support
 
-\- Inference speed depends on hardware and image size.
+## License
 
-\- GAN-based super-resolution may generate plausible details that were not present in the original image.
-
-\- Results can vary depending on image content and degradation.
-
-\- The trained checkpoint must be downloaded separately before running the application.
-
-
-
-\## Future Improvements
-
-
-
-\- GPU acceleration where supported by the installed PyTorch build.
-
-\- Additional benchmark comparisons against established super-resolution models.
-
-\- Support for additional image formats and larger batches.
-
-\- Improved model distribution and setup automation.
-
-
-
-\## License
-
-
-
-Add a license before redistributing this project. Until a license is included, the repository should not be assumed to grant permission for reuse or redistribution.
-
+No license has been specified yet. Add an appropriate license before granting permissions for reuse or redistribution.
