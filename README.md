@@ -132,10 +132,10 @@ Later launches reuse the existing environment and checkpoint. The launcher uses 
 
 **1. Clone the repository**
 
-```bash
-git clone https://github.com/coolknifer333444/image-upscaler-using-GAN.git
-cd image-upscaler-using-GAN
-```
+   ```bash
+   git clone https://github.com/Ishan333444/Image_Upscaler
+   cd Image_Upscaler
+   ```
 
 **2. Create and activate the environment**
 
