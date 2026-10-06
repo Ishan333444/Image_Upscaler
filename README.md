@@ -116,8 +116,8 @@ Synthetic degradation includes bicubic downsampling, blur, noise, and JPEG compr
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/coolknifer333444/image-upscaler-using-GAN.git
-   cd image-upscaler-using-GAN
+   git clone https://github.com/Ishan333444/Image_Upscaler
+   cd Image_Upscaler
    ```
 
 2. Run `start.bat` from the project folder.
