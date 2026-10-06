@@ -1,0 +1,47 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Model checkpoints
+*.pth
+*.pt
+*.ckpt
+
+# Generated images
+upscaled_images/*
+input_images/*
+
+# Keep folder structure
+!input_images/.gitkeep
+!upscaled_images/.gitkeep
+
+# Test outputs
+api_test.png
+test_upscaled.png
+
+# Jupyter
+.ipynb_checkpoints/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+
+# Python packaging
+build/
+dist/
+*.egg-info/

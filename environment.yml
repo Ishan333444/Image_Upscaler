@@ -1,0 +1,13 @@
+name: imageupscaler
+channels:
+  - conda-forge
+dependencies:
+  - python=3.11
+  - pip
+  - pip:
+      - torch
+      - torchvision
+      - fastapi
+      - uvicorn
+      - pillow
+      - python-multipart
